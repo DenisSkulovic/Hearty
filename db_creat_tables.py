@@ -3,25 +3,22 @@ import sqlite3
 db_file = 'users_data.db'
 
 
-def create_connection(db_file):
-    conn= None
-    try:
-        conn = sqlite3.connect(db_file)
-        print("Opened database successfully")
-    except Error as e:
-        print(e)
-    finally:
-        if conn:
-            conn.close()    
+def connect(db_file):
+    conn = sqlite3.connect(db_file)
+    print("connected")
+    return conn
 
 
 
 def create_tables():
-    conn = create_connection(db_file)
+    conn = connect(db_file)
     c = conn.cursor()
-    c.execute("DROP TABLE IF EXISTS users_data")
-    c.execute('''CREATE TABLE users_data (
-        id SERIAL PRIMARY KEY, 
+    
+    drop = "DROP TABLE IF EXISTS entry_data"
+    c.execute(drop)
+
+    entries_table ='''CREATE TABLE entry_data (
+        id INTEGER PRIMARY KEY, 
         age INTEGER NOT NULL, 
         sex INTEGER NOT NULL, 
         smoker INTEGER NOT NULL, 
@@ -29,15 +26,18 @@ def create_tables():
         years_smoking INTEGER NOT NULL, 
         fam_hist_coronary_disease INTEGER NOT NULL, 
         fam_hist_diabt INTEGER NOT NULL, 
-        heart_resting_rate INTEGER NOT NULL) ''')
+        heart_resting_rate INTEGER NOT NULL) '''
+        
+    c.execute(entries_table)
     
     
     
-    c.execute('''CREATE TABLE IF NOT EXISTS predictions (
-        id SERIAL PRIMARY KEY,
+    predictions_table = '''CREATE TABLE IF NOT EXISTS predictions (
+        id INETEGER PRIMARY KEY,
         prediction integer NOT NULL,
         date DATE NOT NULL,
-        FOREIGN KEY (id) REFERENCES projects (id))''')
+        FOREIGN KEY (id) REFERENCES projects (id))'''
+    c.execute(predictions_table)
     
     print("Table created successfully")
 
