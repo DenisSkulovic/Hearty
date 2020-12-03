@@ -121,8 +121,38 @@ def get_data(filenames):
     df = pd.concat(frames)
     for col in df.columns:
         df[col] = df[col].astype(int)
-    df = df.set_index(1, drop=True).sort_index()
+    df = df.reset_index(drop=True)
     return df
 
 filenames = ['hungarian.data.csv', 'cleveland.data.csv', 'long-beach-va.data.csv', 'switzerland.data.csv']
 df = get_data(filenames)
+
+cleaned_df = df.replace(-9, np.nan)
+
+
+# fill missing entries in column 13 - smoking yes or no
+mismatched_df = cleaned_df[(cleaned_df[13].isnull())&(~cleaned_df[14].isnull() | ~cleaned_df[15].isnull())]
+for i in mismatched_df.index:
+    if (cleaned_df.loc[i, 14] > 0) or (cleaned_df.loc[i, 15] > 0):
+        cleaned_df.loc[i, 13] = 1
+    else:
+        cleaned_df.loc[i, 13] = 0
+
+# fill missing diabetes values
+mismatched_df = cleaned_df[cleaned_df[17].isnull()]        
+for i in mismatched_df.index:
+    cleaned_df.loc[i, 17] = 0
+    
+# fill resting heart rate with average
+cleaned_df[33] = cleaned_df[33].apply(lambda x: cleaned_df[33].mean() if x!=x else x)
+
+# fill 13 and 14 
+mismatched_df = cleaned_df[(~cleaned_df[13].isnull())&(cleaned_df[14].isnull() & cleaned_df[15].isnull())]
+for i in mismatched_df.index:
+    if (cleaned_df.loc[i, 13] == 0):
+        cleaned_df.loc[i, 14] = 0
+        cleaned_df.loc[i, 15] = 0
+        
+# drop na
+cleaned_df = cleaned_df.drop(columns=[48])
+
