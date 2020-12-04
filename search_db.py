@@ -2,6 +2,8 @@ import sqlite3
 from sqlite3 import Error 
 import db_creat_tables 
 from interface import *
+from entry import *
+
 
 
 def search_db(id):
@@ -9,7 +11,7 @@ def search_db(id):
     print(f"Your conection to {db_file} database is done")
     c = conn.cursor()
     select = '''SELECT * FROM entry_data WHERE id = ?'''
-    conn.execute(select, (id,))
+    c.execute(select, (id,))
     get_search = c.fetchone()
     return f" Your requested data: {get_search}"
     c.close()

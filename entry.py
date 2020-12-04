@@ -17,7 +17,7 @@ def connect(db_file):
 
 
 
-def getInput():
+def get_input():
     user_data= []
     age =input("Enter your age ")
     sex= input("what's your gender 0:Female - 1: Male ")   
@@ -41,36 +41,33 @@ def getInput():
 
 
 
-def saveInput():
-    
-    conn = connect(db_file)
-    cursor = conn.cursor()
-    save_entry = '''INSERT INTO entry_data (age, sex, smoker, nbr_cigarettes, years_smoking, fam_hist_coronary_disease, fam_hist_diabt,heart_resting_rate)
+
+def save_user_input(user_data):
+ 
+    query = '''INSERT INTO entry_data (age, sex, smoker, nbr_cigarettes, years_smoking, fam_hist_coronary_disease, fam_hist_diabt,heart_resting_rate)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)'''
-    
-    conn.execute(save_entry, getInput())
-    conn.commit()
-    print("Data in process.....Thank you for participating in our servey")
-    conn.close()
+    save_to_db(query,user_data)
     
 
 
 
-
-def savePrediction():
-    conn = connect(db_file)
-    cursor = conn.cursor()
-    # score = (getting results from Model prediction)
-    save_score = '''INSERT INTO predictions (prediction, date)
+def save_prediction(score):
+    
+    query = '''INSERT INTO predictions (prediction, date)
                     VALUES (?, ?)'''
 
-    conn.execute(save_score, score)
+    save_to_db(query, score)
+
+
+
+
+
+def save_to_db(query, data):
+    conn = connect(db_file)
+    c = conn.cursor()
+    c.execute(query,data)
     conn.commit()
-    
+    print("Your data was successfuly added to the DataBase")
+    conn.close()
 
-
-    
-# class Prediction():
-
-#     def __init__(self, )
 
