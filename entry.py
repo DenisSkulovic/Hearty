@@ -48,7 +48,7 @@ def saveInput():
     save_entry = '''INSERT INTO entry_data (age, sex, smoker, nbr_cigarettes, years_smoking, fam_hist_coronary_disease, fam_hist_diabt,heart_resting_rate)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)'''
     
-    conn.execute(save_entry, getInput(),)
+    conn.execute(save_entry, getInput())
     conn.commit()
     print("Data in process.....Thank you for participating in our servey")
     conn.close()
@@ -66,7 +66,7 @@ def savePrediction():
 
     conn.execute(save_score, score)
     conn.commit()
-
+    
 
 
     
