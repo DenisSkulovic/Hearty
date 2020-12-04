@@ -6,16 +6,16 @@ from entry import *
 
 
 
-def search_db(id):
+def find_entry_in_db_byID(id):
     conn = connect(db_file)
     print(f"Your conection to {db_file} database is done")
     c = conn.cursor()
     select = '''SELECT * FROM entry_data WHERE id = ?'''
     c.execute(select, (id,))
     get_search = c.fetchone()
-    return f" Your requested data: {get_search}"
     c.close()
-
+    return f" Your requested data: {get_search}"
+    
 
 
 
