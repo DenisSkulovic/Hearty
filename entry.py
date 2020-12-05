@@ -26,7 +26,9 @@ def get_input():
     years_smoking = input("How many years are you somking? ")
     fam_hist_coronary_disease = input("Do you have history of Coronary disease in your family 0: No, 1: Yes ")
     fam_hist_diabt = input(" Do you hav in you family history for Diabetes 0:No, 1: Yes ")
-    heart_resting_rate = input("Whats your resting heart rate average (if you dont know put 80 ")
+    heart_resting_rate = input("Whats your resting heart rate average")
+    resting_blood_presure =  input("Whats your resting blood presur rate average")
+    
      
     user_data.append(age)
     user_data.append(sex)
@@ -36,6 +38,7 @@ def get_input():
     user_data.append(fam_hist_coronary_disease)
     user_data.append(fam_hist_diabt)
     user_data.append(heart_resting_rate)
+    user_data.append(resting_blood_presure)
     
     return tuple(user_data)
 
@@ -44,8 +47,8 @@ def get_input():
 
 def save_user_input(user_data):
  
-    query = '''INSERT INTO entry_data (age, sex, smoker, nbr_cigarettes, years_smoking, fam_hist_coronary_disease, fam_hist_diabt,heart_resting_rate)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)'''
+    query = '''INSERT INTO entry_data (age, sex, smoker, nbr_cigarettes, years_smoking, fam_hist_coronary_disease, fam_hist_diabt, heart_resting_rate, resting_blood_presure)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'''
     save_to_db(query,user_data)
     
 
