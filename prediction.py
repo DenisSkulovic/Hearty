@@ -1,17 +1,11 @@
 import sqlite3
-
-
-def connect(db_file):
-    conn = sqlite3.connect(db_file)
-    print("connected")
-    return conn
-
+from entry import *
 
 def health_note():
     score = results()
     print("Your results are {score}")
     if score == 0:
-        print("Please watch out ilfe is short, you have to take care of you health")
+        print("Please watch out illifefe is short, you have to take care of you health")
     if score == 1:
         print("your are at risque...might you your life style and your genetics, watch you habits")
     if score == 2: 
