@@ -2,11 +2,10 @@ import joblib
 import glob
 import os 
 import re
-import hearty
-
 import sqlite3
 from entry import *
 from search_db import *
+
 
 
 
@@ -45,8 +44,7 @@ def menu():
             if menu_choice == "G":
                 entry_data = get_input()
                 save_user_input(entry_data)
-                # score = prediction(entry_data)to go thourh the prediction model 
-                score = 10
+                score = bad_col_models['nn'].predict([entry_data])
                 save = save_prediction(score)
                 print(results()) 
                 print(health_note())

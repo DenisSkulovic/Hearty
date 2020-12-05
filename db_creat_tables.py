@@ -26,7 +26,8 @@ def create_tables():
         years_smoking INTEGER NOT NULL, 
         fam_hist_coronary_disease INTEGER NOT NULL, 
         fam_hist_diabt INTEGER NOT NULL, 
-        heart_resting_rate INTEGER NOT NULL) '''
+        heart_resting_rate INTEGER NOT NULL,
+        resting_blood_presure INTEGER NOT NULL )'''
         
     c.execute(entries_table)
     

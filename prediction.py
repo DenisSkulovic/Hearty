@@ -5,14 +5,10 @@ def health_note():
     score = results()
     print("Your results are {score}")
     if score == 0:
-        print("Please watch out illifefe is short, you have to take care of you health")
+        print("The predictions says you have the potential to encounter some hard time with your heart, but thoses are ONLY predictions.\n Take some time to reste your lifesyle")
     if score == 1:
-        print("your are at risque...might you your life style and your genetics, watch you habits")
-    if score == 2: 
-        print(" you are not too much in danger ...I believe some extra sport and healty food will do the job")
-    if score ==3 : 
-        print("well it looks like you are doing something good...keep on doing it :)")
-
+        print("Your health look just fine! Keep up with what you are doings, with hope that all well be well.")
+    
 
 
 
