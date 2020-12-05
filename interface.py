@@ -109,7 +109,7 @@ Main Menu: \n\
                 entry.save_user_input(entry_data)
                 entry_data = [float(i) for i in entry_data]
                
-                score = get_model(model_name, current_subset).predict([entry_data])
+                score = get_model(model_name, current_subset='bad').predict([entry_data])
                
                 date = datetime.datetime.now()
                
