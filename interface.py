@@ -20,20 +20,7 @@ def retrieve_files(folder):
         name = re.findall(pattern=pattern, string=filename)[0]
         files[name] = file
     return files
-bad_col_models = retrieve_files('bad_col_models')  
-better_col_models = retrieve_files('better_col_models')
 
-bad_col_clf_reports = retrieve_files('bad_col_clf_reports')  
-better_col_clf_reports = retrieve_files('better_col_clf_reports')
-
-bad_col_conf_matrices = retrieve_files('bad_col_conf_matrices')  
-better_col_conf_matrices = retrieve_files('better_col_conf_matrices')
-
-
-model_name = 'voting'
-current_subset = 'bad'
-model = bad_col_models[model_name]
-clf_report = bad_col_clf_reports[model_name]
 
 def get_conf_matrix(model_name, current_subset):
     if current_subset == "bad":
@@ -54,6 +41,23 @@ def get_clf_report(model_name, current_subset):
         return better_col_clf_reports[model_name]    
 
    
+
+
+bad_col_models = retrieve_files('bad_col_models')  
+better_col_models = retrieve_files('better_col_models')
+
+bad_col_clf_reports = retrieve_files('bad_col_clf_reports')  
+better_col_clf_reports = retrieve_files('better_col_clf_reports')
+
+bad_col_conf_matrices = retrieve_files('bad_col_conf_matrices')  
+better_col_conf_matrices = retrieve_files('better_col_conf_matrices')
+
+
+model_name = 'voting'
+current_subset = 'bad'
+model = bad_col_models[model_name]
+clf_report = bad_col_clf_reports[model_name]
+
     
 
 
