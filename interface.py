@@ -1,6 +1,28 @@
+import joblib
+import glob
+import os 
+import re
+import hearty
+
 import sqlite3
 from entry import *
 from search_db import *
+
+
+
+def retrieve_models(folder):
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    models = {}
+    for file in os.listdir(f'{dir_path}\\models\\{folder}'):
+        model = joblib.load(f'{dir_path}\\models\\{folder}\\{file}')
+        pattern = re.compile("(\\w+)(?=__\\d{4}_\\d{1,2}_\\d{1,2}__\\d{1,2}_\\d{1,2})")
+        model_name = re.findall(pattern=pattern, string=file)[0]
+        models[model_name] = model
+    return models
+bad_col_models = retrieve_models('bad_col_models')  
+better_col_models = retrieve_models('better_col_models')
+
+
 
 
 
