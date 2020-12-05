@@ -45,21 +45,23 @@ def get_input():
 
 
 
-def save_user_input(user_data):
- 
+def save_user_input(user_data): 
     query = '''INSERT INTO entry_data (age, sex, smoker, nbr_cigarettes, years_smoking, fam_hist_coronary_disease, fam_hist_diabt, heart_resting_rate, resting_blood_presure)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+    
+    print(f'this is the data{user_data}')
+   
     save_to_db(query,user_data)
     
 
 
 
-def save_prediction(score):
+def save_prediction(score, date):
     
     query = '''INSERT INTO predictions (prediction, date)
-                    VALUES (?, ?)'''
+                    VALUES (?, ?) '''
 
-    save_to_db(query, score)
+    save_to_db(query, (score, date))
 
 
 
