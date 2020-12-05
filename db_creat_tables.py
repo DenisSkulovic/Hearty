@@ -31,8 +31,6 @@ def create_tables():
         
     c.execute(entries_table)
     
-    
-    
     predictions_table = '''CREATE TABLE IF NOT EXISTS predictions (
         id INTEGER PRIMARY KEY,
         prediction integer NOT NULL,

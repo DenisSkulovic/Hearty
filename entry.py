@@ -12,24 +12,23 @@ db_file = 'users_data.db'
 
 def connect(db_file):
     conn = sqlite3.connect(db_file)
-    print("connected")
     return conn
 
 
 
 def get_input():
     user_data= []
-    age =input("Enter your age ")
-    sex= input("what's your gender 0:Female - 1: Male ")   
-    smoker = input("are you smoking? 0:No - 1:Yes ")
-    nbr_cigarettes = input("How many cigarettes daily? if you dont somke input 0 ")
-    years_smoking = input("How many years are you somking? ")
-    fam_hist_coronary_disease = input("Do you have history of Coronary disease in your family 0: No, 1: Yes ")
-    fam_hist_diabt = input(" Do you hav in you family history for Diabetes 0:No, 1: Yes ")
-    heart_resting_rate = input("Whats your resting heart rate average")
-    resting_blood_presure =  input("Whats your resting blood presur rate average")
+    print('\n-----------------------------------------------------------------------------')
+    age =input("Enter your age: ")
+    sex= input("What's your gender - Female (0) or Male (1): ")   
+    smoker = input("Do you smoke (1/0): ")
+    nbr_cigarettes = input("Cigarettes per day (0 if don't smoke): ")
+    years_smoking = input("Years of smoking (0 if don't smoke): ")
+    fam_hist_coronary_disease = input("History of heart disease in family (1/0): ")
+    fam_hist_diabt = input("History of diabetes in family (1/0): ")
+    heart_resting_rate = input("Average resting heart rate: ")
+    resting_blood_presure =  input("Average resting blood pressure: ")
     
-     
     user_data.append(age)
     user_data.append(sex)
     user_data.append(smoker)
@@ -44,16 +43,12 @@ def get_input():
 
 
 
-
 def save_user_input(user_data): 
     query = '''INSERT INTO entry_data (age, sex, smoker, nbr_cigarettes, years_smoking, fam_hist_coronary_disease, fam_hist_diabt, heart_resting_rate, resting_blood_presure)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'''
-    
-    print(f'this is the data{user_data}')
    
     save_to_db(query,user_data)
     
-
 
 
 def save_prediction(score, date):
@@ -65,14 +60,11 @@ def save_prediction(score, date):
 
 
 
-
-
 def save_to_db(query, data):
     conn = connect(db_file)
     c = conn.cursor()
     c.execute(query,data)
     conn.commit()
-    print("Your data was successfuly added to the DataBase")
     conn.close()
 
 
