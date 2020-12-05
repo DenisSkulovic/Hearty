@@ -42,9 +42,11 @@ def menu():
         elif menu_choice in option:
              
             if menu_choice == "G":
-                entry_data = get_input()
-                save_user_input(entry_data)
-                score = bad_col_models['nn'].predict([entry_data])
+                # entry_data = get_input()
+                # save_user_input(entry_data)
+                # entry_data = [float(i) for i in entry_data]
+                # print(entry_data)
+                score = bad_col_models['voting'].predict([[1,2,3,4,5,6,7,8]])
                 save = save_prediction(score)
                 print(results()) 
                 print(health_note())
