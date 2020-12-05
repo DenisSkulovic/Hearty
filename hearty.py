@@ -1,3 +1,6 @@
+# using package "datadotworld" requires a token from data.world
+# install the package, then run "dw configure" in the command prompt (refer to instructions on the website)
+
 from abc import ABC, abstractproperty, abstractmethod
 import pandas as pd
 import numpy as np
@@ -112,11 +115,11 @@ class Parser(AbstractParser):
     #                 yield result
          
                 
-def get_data(filenames):
+def get_data(filenames, cols):
     frames = []
     for filename in filenames:
         generator = DataGenerator('uci/heart-disease', filename)
-        data_df = Parser(76, [3,4,13,14,15,17,18,33,58], generator).return_data_df()
+        data_df = Parser(76, cols, generator).return_data_df()
         frames.append(data_df)
     df = pd.concat(frames)
     for col in df.columns:
@@ -125,7 +128,7 @@ def get_data(filenames):
     return df
 
 
-def clean_data(df):
+def clean_bad_cols_data(df):
         
     df = df.replace(-9, np.nan)
     
@@ -158,8 +161,54 @@ def clean_data(df):
     df.reset_index(drop=True, inplace=True)
     return df
 
+def clean_better_cols_data(df):
+        
+    df = df.replace(-9, np.nan)
+    
+    # fill missing diabetes values
+    mismatched_df = df[df[17].isnull()]        
+    for i in mismatched_df.index:
+        df.loc[i, 17] = 0
+
+    # fill resting heart rate with average
+    df[33] = df[33].apply(lambda x: df[33].mean() if x!=x else x)
+    
+    # replacing all remaining missing values with average for each column
+    for col in df.columns:
+        df[col] = df[col].apply(lambda x: np.mean(df[col]) if x!=x else x)
+
+    df.reset_index(drop=True, inplace=True)
+    return df
+
+
+def return_col_names():
+    return {'3':'age',
+            '4':'sex',
+            '5':'pain_location',
+            '6':'pain_provoked_by_excretion',
+            '7':'relieved_after_rest',
+            '9':'chest_pain_type',
+            '10':'resting_blood_pressure_in_Hg_on_admission',
+            '12':'serum_cholesterol_in_mg/dl',
+            '13':'smoke',
+            '14':'cigs_per_day',
+            '15':'years_of_smoking',
+            '16':'fasting_blood_sugar',
+            '17':'fam_hist_of_diabetes',
+            '18':'fam_hist_of_heart_disease',
+            '19':'resting_electrocardiographic_results',
+            '32':'maximum_heart_rate_achieved',
+            '33':'resting_heart_rate',
+            '37':'resting_blood_pressure',
+            '38':'exercise_enduced_angina',
+            '43':'height_at_peak_exercise',
+            '58':'diagnosis'}
 
 
 filenames = ['hungarian.data.csv', 'cleveland.data.csv', 'long-beach-va.data.csv', 'switzerland.data.csv']
-df = get_data(filenames)
-clean_df = clean_data(df)
+bad_cols_df = get_data(filenames, [3,4,13,14,15,17,18,33,37,58])
+clean_bad_cols_df = clean_bad_cols_data(bad_cols_df)
+
+better_cols_df = get_data(filenames, [3,4,5,6,7,9,10,12,16,17,19,32,33,34,35,37,38,43,58]) #18,13,14,15,51,42,
+clean_better_cols_df = clean_better_cols_data(better_cols_df)
+
