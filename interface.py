@@ -88,7 +88,7 @@ Instead of trying so self-diagnose, go see a doctor in case of any symptom.')
         print('*****************************************************************************')
         print('\
 Main Menu: \n\
-    G: Get Prediction \n\
+    G: Get Prediction (only first subset available) \n\
     R: Get model statistics \n\
     C: Change settings \n\
     S: Search previous result in the Database \n\
