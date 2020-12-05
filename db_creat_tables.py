@@ -34,10 +34,10 @@ def create_tables():
     
     
     predictions_table = '''CREATE TABLE IF NOT EXISTS predictions (
-        id INETEGER PRIMARY KEY,
+        id INTEGER PRIMARY KEY,
         prediction integer NOT NULL,
         date DATE NOT NULL,
-        FOREIGN KEY (id) REFERENCES projects (id))'''
+        FOREIGN KEY (id) REFERENCES entry_data (id))'''
     c.execute(predictions_table)
     
     print("Table created successfully")

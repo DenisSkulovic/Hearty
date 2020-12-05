@@ -14,12 +14,14 @@ def health_note():
 
 def results():
     conn = connect(db_file)
-    c = conn.cursor
+    c = conn.cursor()
     get_results = '''SELECT prediction FROM predictions p
     INNER JOIN entry_data e 
-    WHERE e.id == p.id'''
- 
-
-    conn.execute(get_results, health_note())
-    conn.commit()
+    WHERE e.id == p.id
+    AND p.id == (SELECT max(id) FROM predictions)'''
+    
+    c.execute(get_results)
+    results = c.fetchone()
+    print(f'this is it {results}')
+    c.close()
     return results
